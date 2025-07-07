@@ -56,4 +56,37 @@ public class DivisorsAndGCDGUI extends JFrame {
         try {
             int a = Integer.parseInt(input1.getText().trim());
             int b = Integer.parseInt(input2.getText().trim());
-            int c = Integer.parseInt(input3.getText().tr
+            int c = Integer.parseInt(input3.getText().trim());
+
+            outputArea.append("📍 Divisors of " + a + ": " + getDivisors(a) + "\n");
+            outputArea.append("📍 Divisors of " + b + ": " + getDivisors(b) + "\n");
+            outputArea.append("📍 Divisors of " + c + ": " + getDivisors(c) + "\n");
+
+            int gcdValue = gcd(gcd(a, b), c);
+            outputArea.append("\n✅ GCD of " + a + ", " + b + ", and " + c + " is: " + gcdValue);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "❌ Please enter valid integers in all fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private String getDivisors(int num) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= Math.abs(num); i++) {
+            if (num % i == 0) {
+                sb.append(i).append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
+    private int gcd(int a, int b) {
+        if (b == 0)
+            return Math.abs(a);
+        return gcd(b, a % b);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new DivisorsAndGCDGUI());
+    }
+}
